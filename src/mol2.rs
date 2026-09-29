@@ -12,6 +12,7 @@ use std::{
     str::FromStr,
 };
 
+#[cfg(feature = "network")]
 use bio_apis::amber_geostd;
 use lin_alg::f64::Vec3;
 use na_seq::AtomTypeInRes;
@@ -521,6 +522,7 @@ impl Mol2 {
     }
 
     /// Download  rom our Amber Geostd DB using a PDBe/Amber ID.
+    #[cfg(feature = "network")]
     pub fn load_amber_geostd(ident: &str) -> io::Result<Self> {
         let data_str = amber_geostd::load_mol2(ident)
             .map_err(|e| io::Error::other(format!("Error loading: {e:?}")))?;

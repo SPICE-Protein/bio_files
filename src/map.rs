@@ -14,6 +14,7 @@ use std::{
     process::Command,
 };
 
+#[cfg(feature = "network")]
 use bio_apis::rcsb;
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 use lin_alg::f64::{Mat3, Vec3};
@@ -684,6 +685,7 @@ impl DensityMap {
 /// loads the Map to string, then deletes both files.
 ///
 /// If `gemmi_path` i s None, `gemmi` must be available on the PATH env var.
+#[cfg(feature = "network")]
 pub fn density_from_2fo_fc_rcsb_gemmi(
     ident: &str,
     gemmi_path: Option<&Path>,

@@ -11,6 +11,7 @@ use std::{
     str::FromStr,
 };
 
+#[cfg(feature = "network")]
 use bio_apis::{drugbank, pdbe, pubchem, pubchem::StructureSearchNamespace};
 use lin_alg::f64::Vec3;
 use na_seq::Element;
@@ -872,6 +873,7 @@ impl Sdf {
     }
 
     /// Download from DrugBank from a Drugbank ID.
+    #[cfg(feature = "network")]
     pub fn load_drugbank(ident: &str) -> io::Result<Self> {
         let data_str = drugbank::load_sdf(ident)
             .map_err(|e| io::Error::other(format!("Error loading: {e:?}")))?;
@@ -879,6 +881,7 @@ impl Sdf {
     }
 
     /// Download from PubChem from a CID.
+    #[cfg(feature = "network")]
     pub fn load_pubchem(id_type: StructureSearchNamespace, id: &str) -> io::Result<Self> {
         let data_str = pubchem::load_sdf(id_type, id)
             .map_err(|e| io::Error::other(format!("Error loading: {e:?}")))?;
@@ -886,6 +889,7 @@ impl Sdf {
     }
 
     /// Download from PDBe from a PDBe ID.
+    #[cfg(feature = "network")]
     pub fn load_pdbe(ident: &str) -> io::Result<Self> {
         let data_str =
             pdbe::load_sdf(ident).map_err(|e| io::Error::other(format!("Error loading: {e:?}")))?;

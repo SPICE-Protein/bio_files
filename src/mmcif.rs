@@ -15,6 +15,7 @@ use std::{
     str::FromStr,
 };
 
+#[cfg(feature = "network")]
 use bio_apis::rcsb;
 use lin_alg::f64::Vec3;
 use na_seq::{AtomTypeInRes, Element};
@@ -406,6 +407,7 @@ impl MmCif {
     }
 
     /// Download Load from DrugBank from the RCSB Protein Data Bank. (PDB)
+    #[cfg(feature = "network")]
     pub fn load_rcsb(ident: &str) -> io::Result<Self> {
         let data_str =
             rcsb::load_cif(ident).map_err(|e| io::Error::other(format!("Error loading: {e:?}")))?;
